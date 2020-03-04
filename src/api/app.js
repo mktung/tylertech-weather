@@ -1,7 +1,9 @@
 const fetch = require('node-fetch');
+const cors = require('cors');
 const express = require('express');
 
 const app = express();
+app.use(cors());
 
 const hostname = '127.0.0.1';
 const port = 3000;
@@ -20,7 +22,6 @@ app.get('/forecast', async (req, res) => {
     return;
   }
   const json = await fetch_res.json();
-  console.log(json);
   res.send({
     temp: json.currently.temperature,
     summary: json.hourly.summary
