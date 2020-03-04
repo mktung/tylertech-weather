@@ -1,28 +1,39 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <main id="app">
+    <div class="weather-display">
+        <span id="temperature">{{temperature}}</span>
+        <span id="summary">{{summary}}</span>
+    </div>
+    <div class="form">
+        <label for="location">Enter location to get weather:</label>
+        <input v-model="loc" type="text" name="location" id="location" placeholder="latitude, longitude"/>
+        <button @click="getWeather()">Go</button>
+    </div>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data: () => {
+      return {
+        temperature: '',
+        summary: '',
+        loc: ''
+      }
+  },
+  methods: {
+    async getWeather() {
+      let location = this.loc.split(/\s*,\s*/);
+      const res = await fetch(`http://localhost:3000/forecast?lat=${location[0]}&lon=${location[1]}`);
+      const json = await res.json();
+      this.temperature = json.temp;
+      this.summary = json.summary;
+      console.log(json)
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

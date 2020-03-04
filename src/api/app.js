@@ -20,6 +20,7 @@ app.get('/forecast', async (req, res) => {
     return;
   }
   const json = await fetch_res.json();
+  console.log(json);
   res.send({
     temp: json.currently.temperature,
     summary: json.hourly.summary
