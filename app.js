@@ -8,8 +8,7 @@ app.use(cors());
 const hostname = '127.0.0.1';
 const port = 3000;
 
-// const api_key = process.env.DARK_SKY_API_KEY;
-const api_key = '52035dee7bcfe734fb0f0281a5fa71dd';
+const api_key = process.env.DARK_SKY_API_KEY;
 const api_endpoint = 'https://api.darksky.net/forecast';
 
 app.get('/forecast', async (req, res) => {
